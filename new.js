@@ -1,5 +1,9 @@
+    import dotenv from 'dotenv';
+    dotenv.config();
+    
     function sendPromptToChatGPT() {
-        // const apiKey = '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'; // Replace with your API key
+       
+        const apiKey = process.env.OPENAI_API_KEY
         const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
         // const prompt = promptInput.value.trim();
@@ -10,6 +14,10 @@
             alert('Please enter a prompt.');
             return;
         }
+
+
+
+
 
         // Send POST request to ChatGPT API
         fetch(apiUrl, {
@@ -23,7 +31,7 @@
                 messages: [
                 {
                     role: "system",
-                    content: "You are a helpful assistant designed to output JSON. Every request please generate a unique band name based on the description I send to you.",
+                    content: "You are a helpful assistant designed to output JSON. Every request please generate a unique band name based on the description",
                 },
                 { role: "user", content: `${message}` },
                 ],
@@ -34,9 +42,13 @@
         })
         .then(response => response.json())
         .then(data => {
+
+            console.log(typeof data)
             // Display ChatGPT response
             // chatContainer.innerHTML = '<strong>You:</strong> ' + prompt + '<br><strong>ChatGPT:</strong> ' + data.choices[0].text;
-            console.log(data.choices[0].message.content)
+            const ojb = data.choices[0].message.content
+            console.log(ojb)
+
         })
         .catch(error => {
             console.error('Error:', error);
