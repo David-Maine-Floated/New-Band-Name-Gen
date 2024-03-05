@@ -1,5 +1,5 @@
     function sendPromptToChatGPT() {
-        const apiKey = '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'; // Replace with your API key
+        // const apiKey = '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'; // Replace with your API key
         const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
         // const prompt = promptInput.value.trim();
