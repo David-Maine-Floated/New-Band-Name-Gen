@@ -1,7 +1,7 @@
     import dotenv from 'dotenv';
     dotenv.config();
     
-    function sendPromptToChatGPT() {
+    async function sendPromptToChatGPT() {
        
         const apiKey = process.env.OPENAI_API_KEY
         const apiUrl = 'https://api.openai.com/v1/chat/completions';
@@ -9,15 +9,11 @@
         // const prompt = promptInput.value.trim();
         const message = 'I need a band name for 5 twin sisters who play jazz'
 
-        // Check if prompt is empty
+
         if (!message) {
             alert('Please enter a prompt.');
             return;
         }
-
-
-
-
 
         // Send POST request to ChatGPT API
         fetch(apiUrl, {
@@ -31,7 +27,7 @@
                 messages: [
                 {
                     role: "system",
-                    content: "You are a helpful assistant designed to output JSON. Every request please generate a unique band name based on the description",
+                    content: "You are a helpful assistant designed to output JSON. Every request please generate a new band name based on the descriptio. Every response you make should have a band name you've never sent me before.",
                 },
                 { role: "user", content: `${message}` },
                 ],
