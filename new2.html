@@ -1,10 +1,21 @@
 
 
 
-
-<div id="chat-window"></div>
-<input type="text" id="prompt-textbox" placeholder="Enter your prompt here">
-<button id="prompt-button">Prompt</button>
+<div style="width: 600px; height: 350px; background-color: #f7f8f9; display: flex; justify-content: center; flex-direction: column; align-content: center; font-family: Poppins;" class="body">
+    <p>Please enter a description or a prompt for our bandname generator! Here's an example: "We make electronic music with old synths."</p>
+    <div style="display: flex; justify-content: center;">
+        <input style="height: 30px; margin-top: 20px; margin-bottom: 15px; width: 300px" type="text" id="prompt-textbox" placeholder="Enter your description here">
+    </div>
+    <div style="display: flex; justify-content: center; margin-bottom: 30px;">
+        <div class="prompt-button-2" style="width: 150px; height: 50px; background-color: rgb(29, 175, 247); border-radius: 10px; text-align: center;">
+            <span>Generate Band Name!</span>
+        </div>
+        <button style="width: 150px" id="prompt-button">Generate Band Name!</button>  
+    </div>
+    <div style="display: flex; justify-content: center; height: 50px; width: 100%;">
+        <div style="display: flex; justify-content: center;  font-size: 30px;"id="chat-window"></div>
+    </div>
+</div>
 <script>
     document.getElementById('prompt-button').addEventListener('click', function() {
         console.log('yasssss')
@@ -30,9 +41,9 @@
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data.choices[0].message.content)
+    let name = data.choices[0].message.content
     let chatWindow = document.getElementById('chat-window');
-    chatWindow.innerHTML = data.choices[0].message.content
+    chatWindow.innerHTML = name.slice(1, name.length - 1)
     })
     .catch(error => {
     console.error('Error:', error);
