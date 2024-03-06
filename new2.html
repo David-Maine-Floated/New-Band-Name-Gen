@@ -1,0 +1,41 @@
+
+
+
+
+<div id="chat-window"></div>
+<input type="text" id="prompt-textbox" placeholder="Enter your prompt here">
+<button id="prompt-button">Prompt</button>
+<script>
+    document.getElementById('prompt-button').addEventListener('click', function() {
+        console.log('yasssss')
+    let prompt = document.getElementById('prompt-textbox').value;
+
+    fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer '+ "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",
+    },
+    body: JSON.stringify({
+    model : "gpt-3.5-turbo",
+    messages: [
+    {
+    role: 'system',
+    content: "You are a helpful assistant. I want you to give me a band name based on the description I send to you."
+    },
+    { role: "user", content: `${prompt}` },
+    ],
+    max_tokens : 20
+    })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.choices[0].message.content)
+    let chatWindow = document.getElementById('chat-window');
+    chatWindow.innerHTML = data.choices[0].message.content
+    })
+    .catch(error => {
+    console.error('Error:', error);
+    });
+    });
+</script>

@@ -42,7 +42,7 @@
             console.log(typeof data)
             // Display ChatGPT response
             // chatContainer.innerHTML = '<strong>You:</strong> ' + prompt + '<br><strong>ChatGPT:</strong> ' + data.choices[0].text;
-            const ojb = data.choices[0].message.content
+            const ojb = data.choices[0].message.content.band_name
             console.log(ojb)
 
         })
