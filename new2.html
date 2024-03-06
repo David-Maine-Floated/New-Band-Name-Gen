@@ -1,52 +1,74 @@
 
 
 
-<div style="width: 600px; height: 350px; background-color: #f7f8f9; display: flex; justify-content: center; flex-direction: column; align-content: center; font-family: Poppins;" class="body">
+<div style="color: #3a3a3a; width: 600px; height: 350px; background-color: #f7f8f9; display: flex; justify-content: center; flex-direction: column; align-content: center; font-family: Poppins;" class="body">
+    <div style="text-align: center;">
+        <h1>Band Name Generator</h1>
+    </div>
     <p>Please enter a description or a prompt for our bandname generator! Here's an example: "We make electronic music with old synths."</p>
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center; ">
         <input style="height: 30px; margin-top: 20px; margin-bottom: 15px; width: 300px" type="text" id="prompt-textbox" placeholder="Enter your description here">
     </div>
     <div style="display: flex; justify-content: center; margin-bottom: 30px;">
-        <div class="prompt-button-2" style="width: 150px; height: 50px; background-color: rgb(29, 175, 247); border-radius: 10px; text-align: center;">
+        <div class="prompt-button-2" id="prompt-button-2" style="width: 150px; height: 50px; background-color: rgb(29, 175, 247); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;" >
             <span>Generate Band Name!</span>
         </div>
-        <button style="width: 150px" id="prompt-button">Generate Band Name!</button>  
     </div>
     <div style="display: flex; justify-content: center; height: 50px; width: 100%;">
         <div style="display: flex; justify-content: center;  font-size: 30px;"id="chat-window"></div>
     </div>
 </div>
 <script>
-    document.getElementById('prompt-button').addEventListener('click', function() {
+
+     const divElement = document.querySelector('.prompt-button-2');
+
+        // Add mouseenter event listener
+        divElement.addEventListener('mouseenter', function() {
+            // Change background color and text color on hover
+            divElement.style.backgroundColor = '#f2783b';
+            divElement.style.cursor = 'pointer'
+        });
+
+        // Add mouseleave event listener
+        divElement.addEventListener('mouseleave', function() {
+            // Restore default background color and text color when not hovering
+            divElement.style.backgroundColor = ' rgb(29, 175, 247)';
+        });
+
+
+
+
+
+    document.getElementById('prompt-button-2').addEventListener('click', function() {
         console.log('yasssss')
     let prompt = document.getElementById('prompt-textbox').value;
 
     fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer '+ "",
-    },
-    body: JSON.stringify({
-    model : "gpt-3.5-turbo",
-    messages: [
-    {
-    role: 'system',
-    content: "You are a helpful assistant. I want you to give me a band name based on the description I send to you."
-    },
-    { role: "user", content: `${prompt}` },
-    ],
-    max_tokens : 20
-    })
-    })
-    .then(response => response.json())
-    .then(data => {
-    let name = data.choices[0].message.content
-    let chatWindow = document.getElementById('chat-window');
-    chatWindow.innerHTML = name.slice(1, name.length - 1)
-    })
-    .catch(error => {
-    console.error('Error:', error);
-    });
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+ "",
+        },
+        body: JSON.stringify({
+            model : "gpt-3.5-turbo",
+            messages: [
+        {
+            role: 'system',
+            content: "You are a helpful assistant. I want you to give me a band name based on the description I send to you."
+        },
+        { role: "user", content: `${prompt}` },
+        ],
+            max_tokens : 20
+        })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let name = data.choices[0].message.content
+            let chatWindow = document.getElementById('chat-window');
+            chatWindow.innerHTML = name.slice(1, name.length - 1)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     });
 </script>
